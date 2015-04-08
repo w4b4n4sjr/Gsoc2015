@@ -7,6 +7,7 @@
 #define COLS 3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
 #define ROWS 3
 using namespace std;
+void outputBasis(double matrix[ROWS][COLS]);
 void gramSchmidt(double matb[ROWS][COLS], double matr[ROWS][COLS]);
 void step2(double array1[ROWS][COLS], double d[COLS], double array3[ROWS][COLS], double array2[ROWS][COLS]);
 void step4(double array[ROWS][COLS], double array1[ROWS][COLS], int k);
@@ -15,7 +16,11 @@ void swap(double matrix[ROWS][COLS], int r, int s);
 int main(int argc, char** argv) {
     double u[ROWS][COLS] = {1,2,3,3,2,1,2,1,3};
     double v[ROWS][COLS] = {0,0,0,0,0,0,0,0,0};
-    gramSchmidt(u,v);
+    cout << " testing the patch" << endl;
+    //gramSchmidt(u, v);
+    swap(u,0,2);
+    outputBasis(u);
+    //gramSchmidt(u,v);
     return 0;
 }
 void gramSchmidt(double matb[ROWS][COLS], double matr[ROWS][COLS])
@@ -28,7 +33,7 @@ void gramSchmidt(double matb[ROWS][COLS], double matr[ROWS][COLS])
     /* intializations */
     for (i = 0; i < COLS; i++)
     {
-        den[i] = 0;
+        den[i] = 1;
     }
     for(i = 0; i < ROWS; i++ )
     {
@@ -66,17 +71,21 @@ void gramSchmidt(double matb[ROWS][COLS], double matr[ROWS][COLS])
             k = k+1;
         }
     }
-    /* output basis*/
-    for( i = 0; i < ROWS; i++)
+}
+
+/* output the basis*/
+void outputBasis(double matrix[ROWS][COLS])
+{
+    int i = 0, j = 0;
+     for( i = 0; i < ROWS; i++)
     {
         for(j = 0; j < COLS; j++)
         {
-            cout << matb[i][j] << " ";
+            cout << matrix[i][j] << " ";
         }
         cout << endl;
     }
 }
-
 /* step 2 routine*/
 void step2(double array1[ROWS][COLS], double d[COLS], double array3[ROWS][COLS], double array2[ROWS][COLS])
 {
@@ -100,7 +109,7 @@ void step2(double array1[ROWS][COLS], double d[COLS], double array3[ROWS][COLS],
 void step4(double array[ROWS][COLS], double array1[ROWS][COLS], int k)
 {
     /*some iterators*/
-    int i = 0, j = 0, l = 0, r;
+    int i = 0, j = 0, l = 0, r = 0;
     for(i = 2; i < ROWS; i++)
     {
         for(j = 1; j < i-1; j++)
